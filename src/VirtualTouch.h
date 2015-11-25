@@ -15,68 +15,72 @@
 
 namespace ofxInterface {
 
-class VirtualTouch
-{
+class VirtualTouch {
 public:
+  ~VirtualTouch();
+  VirtualTouch();
 
-	~VirtualTouch();
-	VirtualTouch();
+  /******
+   * Setup the path and duration of the touch
+   *
+   * returns the touch id
+   */
+  int setup(const ofVec2f &p, float duration);                       // use for tap
+  int setup(const ofVec2f &src, const ofVec2f &dst, float duration); // src to dst swipe
+  int setup(ofNode *src, ofNode *dst, float duration);               // node to node swipe
+  int setup(const ofPolyline &path, float duration);                 // arbitrary path swipe
 
-	/******
-	 * Setup the path and duration of the touch
-	 *
-	 * returns the touch id
-	 */
-	int setup(const ofVec2f& p, float duration);						// use for tap
-	int setup(const ofVec2f& src, const ofVec2f& dst, float duration);	// src to dst swipe
-	int setup(ofNode* src, ofNode* dst, float duration);				// node to node swipe
-	int setup(const ofPolyline& path, float duration);					// arbitrary path swipe
+  /******
+   * Call these to actually start/stop the touch
+   */
+  void play();
+  void pause();
+  void stop(bool fireDoneEvent = false);
 
-	/******
-	 * Call these to actually start/stop the touch
-	 */
-	void play();
-	void pause();
-	void stop(bool fireDoneEvent=false);
+  /******
+   * Set this to draw a finger texture with this touch
+   * hotSpotAnchor is (0-1, 0-1)
+   */
+  void setFingerTexture(ofTexture *tex, ofColor c = ofColor::white, float rotation = 0.0f, float scale = 1.0f, ofVec2f hotSpotAnchor = ofVec2f());
 
-	/******
-	 * Set this to draw a finger texture with this touch
-	 * hotSpotAnchor is (0-1, 0-1)
-	 */
-	void setFingerTexture(ofTexture* tex, ofColor c=ofColor::white, float rotation=0.0f, float scale=1.0f, ofVec2f hotSpotAnchor=ofVec2f());
+  int getId() {
+    return id;
+  }
+  bool isDown() {
+    return bDown;
+  }
+  bool isRunning() {
+    return bRunning;
+  }
 
-	int getId() { return id; }
-	bool isDown() { return bDown; }
-	bool isRunning() { return bRunning; }
+  void update(float dt);
+  void draw();
 
-	void update(float dt);
-	void draw();
-
-	ofEvent<VirtualTouch> eventDone;
+  ofEvent<VirtualTouch> eventDone;
 
 private:
-	bool bInitialized;
-	int id;
-	ofPolyline path;
-	ofVec2f currentPos;
-	float duration;
+  bool bInitialized;
+  int id;
+  ofPolyline path;
+  ofVec2f currentPos;
+  float duration;
 
-	bool isTap;
+  bool isTap;
 
-	float time;
-	bool bRunning;
-	bool bDown;
+  float time;
+  bool bRunning;
+  bool bDown;
 
-	ofTexture* fingerTex;
-	ofColor fingerTexColor;
-	float fingerTexRotation;
-	float fingerTexScale;
-	ofVec2f fingerTexHotSpotAnchor;
+  ofTexture *fingerTex;
+  ofColor fingerTexColor;
+  float fingerTexRotation;
+  float fingerTexScale;
+  ofVec2f fingerTexHotSpotAnchor;
 
-	// return uniqe touch id ranging (-100 - INT_MIN) and wrapping back
-	int getUniqeTouchId();
+  // return uniqe touch id ranging (-100 - INT_MIN) and wrapping back
+  int getUniqeTouchId();
 };
 
-}	// namespace
+} // namespace
 
 #endif /* defined(__modelmath__VirtualTouch__) */

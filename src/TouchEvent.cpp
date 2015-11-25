@@ -12,37 +12,24 @@
 
 namespace ofxInterface {
 
-TouchEvent::TouchEvent() : 
-	id(0),
-	receiver(NULL),
-	lastSeenAbove(NULL),
-	firstPosition(),
-	position(),
-	prevPosition(),
-	velocity(),
-	prevVelocity(),
-	velocitySmoothed(),
-	timestamp(ofGetSystemTimeMicros()),
-	prevTimestamp(timestamp),
-	data(NULL)
-{
+TouchEvent::TouchEvent()
+    : id(0), receiver(NULL), lastSeenAbove(NULL), firstPosition(), position(), prevPosition(), velocity(), prevVelocity(), velocitySmoothed(),
+      timestamp(ofGetSystemTimeMicros()), prevTimestamp(timestamp), data(NULL) {
 }
 
-TouchEvent::~TouchEvent()
-{
-	if (receiver != NULL) {
-		ofRemoveListener(receiver->eventDestroy, this, &TouchEvent::onComponentDestroyed);
-	}
+TouchEvent::~TouchEvent() {
+  if (receiver != NULL) {
+    ofRemoveListener(receiver->eventDestroy, this, &TouchEvent::onComponentDestroyed);
+  }
 }
 
-void TouchEvent::setReceiver(Node* comp)
-{
-	if (receiver != NULL) {
-		ofRemoveListener(receiver->eventDestroy, this, &TouchEvent::onComponentDestroyed);
-	}
+void TouchEvent::setReceiver(Node *comp) {
+  if (receiver != NULL) {
+    ofRemoveListener(receiver->eventDestroy, this, &TouchEvent::onComponentDestroyed);
+  }
 
-	receiver = comp;
-	ofAddListener(receiver->eventDestroy, this, &TouchEvent::onComponentDestroyed);
+  receiver = comp;
+  ofAddListener(receiver->eventDestroy, this, &TouchEvent::onComponentDestroyed);
 }
 
 } // namespace

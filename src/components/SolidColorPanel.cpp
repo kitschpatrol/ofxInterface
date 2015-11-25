@@ -10,44 +10,37 @@
 
 namespace ofxInterface {
 
+void SolidColorPanel::setup(float w, float h) {
+  setSize(w, h);
 
-void SolidColorPanel::setup(float w, float h)
-{
-    setSize(w, h);
-
-	bDrawBackground = true;
-	bDrawBorder = false;
-	bRounded = false;
-	roundAngle = 5;
+  bDrawBackground = true;
+  bDrawBorder = false;
+  bRounded = false;
+  roundAngle = 5;
 }
 
-void SolidColorPanel::draw()
-{
-	if (bDrawBackground) {
-		ofFill();
-		ofSetColor(bgColor);
+void SolidColorPanel::draw() {
+  if (bDrawBackground) {
+    ofFill();
+    ofSetColor(bgColor);
 
-		if (bRounded) {
-			ofDrawRectRounded(0, 0, getWidth(), getHeight(), roundAngle);
-		}
-		else {
-			ofDrawRectangle(0, 0, getWidth(), getHeight());
-		}
-	}
+    if (bRounded) {
+      ofDrawRectRounded(0, 0, getWidth(), getHeight(), roundAngle);
+    } else {
+      ofDrawRectangle(0, 0, getWidth(), getHeight());
+    }
+  }
 
-	if (bDrawBorder) {
-		ofNoFill();
-		ofSetLineWidth(2);
-		ofSetColor(strokeColor);
-		if (bRounded) {
-			ofDrawRectRounded(0, 0, getWidth(), getHeight(), roundAngle);
-		}
-		else {
-			ofDrawRectangle(0, 0, getWidth(), getHeight());
-		}
-	}
+  if (bDrawBorder) {
+    ofNoFill();
+    ofSetLineWidth(2);
+    ofSetColor(strokeColor);
+    if (bRounded) {
+      ofDrawRectRounded(0, 0, getWidth(), getHeight(), roundAngle);
+    } else {
+      ofDrawRectangle(0, 0, getWidth(), getHeight());
+    }
+  }
 }
 
-
-
-}   // namespace
+} // namespace

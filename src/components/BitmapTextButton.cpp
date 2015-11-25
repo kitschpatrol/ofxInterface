@@ -8,41 +8,37 @@
 
 #include "BitmapTextButton.h"
 
-namespace ofxInterface
-{
+namespace ofxInterface {
 
-void BitmapTextButton::setup(const string &_label)
-{
-	label = _label;
-	setSize(label.length()*8 + 10, 20);
-    setName(label);
+void BitmapTextButton::setup(const string &_label) {
+  label = _label;
+  setSize(label.length() * 8 + 10, 20);
+  setName(label);
 
-	bDrawBorder = true;
-	bDrawBackground = true;
+  bDrawBorder = true;
+  bDrawBackground = true;
 
-	borderColor = ofColor(0);
-	bgColor = ofColor(255);
-	labelColor = ofColor(0);
+  borderColor = ofColor(0);
+  bgColor = ofColor(255);
+  labelColor = ofColor(0);
 }
 
-void BitmapTextButton::draw()
-{
-	if (bDrawBackground) {
-		ofSetColor(bgColor);
-		ofFill();
-		ofDrawRectangle(0, 0, getWidth(), getHeight());
-	}
+void BitmapTextButton::draw() {
+  if (bDrawBackground) {
+    ofSetColor(bgColor);
+    ofFill();
+    ofDrawRectangle(0, 0, getWidth(), getHeight());
+  }
 
-	ofSetColor(labelColor);
-	ofDrawBitmapString(label, 5, getHeight()-5);
+  ofSetColor(labelColor);
+  ofDrawBitmapString(label, 5, getHeight() - 5);
 
-	if (bDrawBorder) {
-		ofSetColor(borderColor);
-		ofNoFill();
-		ofSetLineWidth(1);
-		ofDrawRectangle(0, 0, getWidth(), getHeight());
-	}
+  if (bDrawBorder) {
+    ofSetColor(borderColor);
+    ofNoFill();
+    ofSetLineWidth(1);
+    ofDrawRectangle(0, 0, getWidth(), getHeight());
+  }
 }
 
-
-} 	// namespace
+} // namespace

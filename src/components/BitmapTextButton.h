@@ -14,36 +14,42 @@
 
 #include "ofxInterface.h"
 
-namespace ofxInterface
-{
+namespace ofxInterface {
 
-class BitmapTextButton : public Node
-{
+class BitmapTextButton : public Node {
 public:
+  void setup(const string &label);
 
-	void setup(const string& label);
+  void setBackground(bool set) {
+    bDrawBackground = set;
+  }
+  void setBorder(bool set) {
+    bDrawBorder = set;
+  }
 
-	void setBackground(bool set) { bDrawBackground = set; }
-	void setBorder(bool set) { bDrawBorder = set; }
+  void setLabelColor(const ofColor &c) {
+    labelColor = c;
+  }
+  void setBGColor(const ofColor &c) {
+    bgColor = c;
+  }
+  void setBorderColor(const ofColor &c) {
+    borderColor = c;
+  }
 
-	void setLabelColor(const ofColor& c) { labelColor = c; }
-	void setBGColor(const ofColor& c) { bgColor = c; }
-	void setBorderColor(const ofColor& c) { borderColor = c; }
-
-	void draw();
+  void draw();
 
 private:
+  bool bDrawBackground;
+  bool bDrawBorder;
 
-	bool bDrawBackground;
-	bool bDrawBorder;
+  ofColor borderColor;
+  ofColor bgColor;
+  ofColor labelColor;
 
-	ofColor borderColor;
-	ofColor bgColor;
-	ofColor labelColor;
-
-	string label;
+  string label;
 };
 
-}	// namespace
+} // namespace
 
 #endif /* defined(__ofxUINode__BitmapTextButton__) */
